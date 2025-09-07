@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI CORE // BATCH_PROCESSOR</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="main-header">
+            <h1 class="title">AI_CORE::IMG_CLASSIFIER</h1>
+            <nav class="main-nav">
+                <a href="#">[STATUS: ONLINE]</a>
+                <a href="#">[MODEL_FILTER: CLIP_VIT-L14]</a>
+                <a href="#">[MODEL_EXPERT: EFNV2-S]</a>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <div class="upload-module">
+                <form id="upload-form">
+                    <label for="image-input" class="upload-label">+ SELECT FILE_INPUT</label>
+                    <input type="file" id="image-input" accept="image/*" hidden>
+                </form>
+                <div class="preview-container">
+                    <img id="preview" src="#" alt="" class="hidden"/>
+                </div>
+            </div>
+
+            <div class="output-module">
+                <div class="output-header">OUTPUT_LOG</div>
+                <div id="spinner" class="spinner hidden"></div>
+                <div id="results"></div>
+            </div>
+        </main>
+
+        <footer class="main-footer">
+            <p>// PROTOTYPE v3.1.0 // CORTEX_INTERFACE // NO_RIGHTS_RESERVED</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

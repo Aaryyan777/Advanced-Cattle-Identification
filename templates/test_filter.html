@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Model Test</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; background-color: #f0f2f5; }
+        .container { max-width: 600px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { text-align: center; }
+        form { display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        #results { margin-top: 20px; padding: 15px; background: #222; color: #00ff00; border-radius: 4px; white-space: pre; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Filter Model Test Interface</h1>
+        <p>This interface ONLY tests the <strong>Cattle vs. Not-Cattle</strong> filter model.</p>
+        <form id="upload-form">
+            <input type="file" id="file-input" name="file" accept="image/*" required>
+            <button type="submit">Test Filter</button>
+        </form>
+        <div id="results-container" style="display: none;">
+            <h3>Filter Response:</h3>
+            <pre id="results"></pre>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('upload-form');
+        const fileInput = document.getElementById('file-input');
+        const resultsContainer = document.getElementById('results-container');
+        const resultsEl = document.getElementById('results');
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            resultsContainer.style.display = 'none';
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    body: formData,
+                });
+                const data = await response.json();
+                resultsEl.textContent = JSON.stringify(data, null, 2);
+                resultsContainer.style.display = 'block';
+            } catch (error) {
+                resultsEl.textContent = `Error: ${error}`;
+                resultsContainer.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
